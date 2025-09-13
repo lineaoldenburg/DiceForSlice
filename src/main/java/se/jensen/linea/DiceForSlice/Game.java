@@ -43,7 +43,6 @@ public class Game {
         final String PALE_ORANGE = "\u001B[38;5;226m";
         final String LIGHT_YELLOW = "\u001B[38;5;228m";
         final String LIGHTER_YELLOW = "\u001B[38;5;230m";
-        final String VERY_LIGHT_YELLOW = "\u001B[38;5;231m";
 
 // "DICE FOR SLICE" in bright orange
         String[] printLine = {
@@ -129,7 +128,7 @@ public class Game {
             playerOne.setScore(score);
         } else {
             System.out.println("You need to press 1");
-        };
+        }
 
             System.out.println(playerTwo.getFirstName() + " PRESS ONE TO ROLL THE DICE");
             playInput = Integer.parseInt(scanner.nextLine());
