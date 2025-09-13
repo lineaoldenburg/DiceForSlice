@@ -34,8 +34,47 @@ public class Game {
 
     /*INTRO*/
     public void introGame() {
-        System.out.println("DICE FOR SLICE");
-        System.out.println("2 players, 2 rounds, 1 Dice. Highest score wins a Pizza-slice");
+
+        // ANSI color codes
+        final String RESET = "\u001B[0m";
+        final String BRIGHT_ORANGE = "\u001B[38;5;208m";
+        final String ORANGE = "\u001B[38;5;214m";
+        final String LIGHT_ORANGE = "\u001B[38;5;220m";
+        final String PALE_ORANGE = "\u001B[38;5;226m";
+        final String LIGHT_YELLOW = "\u001B[38;5;228m";
+        final String LIGHTER_YELLOW = "\u001B[38;5;230m";
+        final String VERY_LIGHT_YELLOW = "\u001B[38;5;231m";
+
+// "DICE FOR SLICE" in bright orange
+        String[] printLine = {
+                BRIGHT_ORANGE + "╺┳┓╻┏━╸┏━╸   ┏━╸┏━┓┏━┓   ┏━┓╻  ╻┏━╸┏━╸" + RESET,
+                BRIGHT_ORANGE + " ┃┃┃┃  ┣╸    ┣╸ ┃ ┃┣┳┛   ┗━┓┃  ┃┃  ┣╸ " + RESET,
+                BRIGHT_ORANGE + "╺┻┛╹┗━╸┗━╸   ╹  ┗━┛╹┗╸   ┗━┛┗━╸╹┗━╸┗━╸" + RESET
+        };
+
+        for(String line : printLine){
+            System.out.println(line);
+        }
+
+// Info text with gradient fade
+        String[] printInfo = {
+                ORANGE + "╔╦╗╦ ╦╔═╗  ┌─┐┬  ┌─┐┬ ┬┌─┐┬─┐┌─┐" + RESET,
+                ORANGE + " ║ ║║║║ ║  ├─┘│  ├─┤└┬┘├┤ ├┬┘└─┐" + RESET,
+                LIGHT_ORANGE + " ╩ ╚╩╝╚═╝  ┴  ┴─┘┴ ┴ ┴ └─┘┴└─└─┘" + RESET,
+
+                LIGHT_ORANGE + "╔╦╗╦ ╦╔═╗  ┬─┐┌─┐┬ ┬┌┐┌┌┬┐┌─┐   " + RESET,
+                PALE_ORANGE + " ║ ║║║║ ║  ├┬┘│ ││ ││││ ││└─┐   " + RESET,
+                PALE_ORANGE + " ╩ ╚╩╝╚═╝  ┴└─└─┘└─┘┘└┘─┴┘└─┘   " + RESET,
+
+                PALE_ORANGE + "╔═╗╔╗╔╔═╗  ┌┬┐┬┌─┐┌─┐       ╔═╗╔╗╔╔═╗  ┌─┐┬  ┬┌─┐┌─┐" + RESET,
+                LIGHT_YELLOW + "║ ║║║║║╣    ││││  ├┤   ───  ║ ║║║║║╣   └─┐│  ││  ├┤ " + RESET,
+                LIGHTER_YELLOW + "╚═╝╝╚╝╚═╝  ─┴┘┴└─┘└─┘       ╚═╝╝╚╝╚═╝  └─┘┴─┘┴└─┘└─┘" + RESET
+        };
+
+        for(String line : printInfo){
+            System.out.println(line);
+        }
+
         System.out.println("Write 1 to start game, Write 2 to quit");
 
         while (true) {
@@ -71,7 +110,6 @@ public class Game {
             this.playerTwo = new Player(playerTwoFirst, playerTwoLast, 0);
 
             this.renderer = new RenderGame(this.playerOne, this.playerTwo);
-            renderer.renderPlayers();
             game(scanner);
         }
 
@@ -80,7 +118,9 @@ public class Game {
         Random random = new Random();
         int diceRoll = 0;
 
-        for (int i = 0; i < 2; i++) {
+        for (int round = 1; round <= 2; round++) {
+            renderer.renderPlayers(round);
+
         System.out.println(playerOne.getFirstName() + " PRESS ONE TO ROLL THE DICE");
         int playInput = Integer.parseInt(scanner.nextLine());
         if (playInput == 1) {
@@ -89,10 +129,7 @@ public class Game {
             playerOne.setScore(score);
         } else {
             System.out.println("You need to press 1");
-        }
-
-        renderer.renderPlayers();
-
+        };
 
             System.out.println(playerTwo.getFirstName() + " PRESS ONE TO ROLL THE DICE");
             playInput = Integer.parseInt(scanner.nextLine());
@@ -104,7 +141,23 @@ public class Game {
                 System.out.println("You need to press 1");
             }
 
-            renderer.renderPlayers();
+
+        }
+
+        determineWinner();
+    }
+
+    //Winner
+    public void determineWinner() {
+        int playerOneScore = playerOne.getScore();
+        int playerTwoScore = playerTwo.getScore();
+
+        if (playerOneScore > playerTwoScore) {
+            renderer.renderWinner(playerOne, playerTwo);
+        } else {
+            renderer.renderWinner(playerTwo, playerOne);
         }
     }
 }
+
+

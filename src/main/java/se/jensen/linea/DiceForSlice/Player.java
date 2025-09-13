@@ -19,6 +19,10 @@ public class Player {
         return lastName;
     }
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
     public int getScore() {
         return score;
     }
