@@ -93,16 +93,20 @@ public class Game {
 
     /*CREATE PLAYERS*/
         public void CreatePlayers() {
-            System.out.println("Enter Player one first name:");
+            final String ORANGE = "\u001B[38;5;214m";
+            final String GREEN  = "\u001B[38;5;46m";
+            final String RESET  = "\u001B[0m";
+
+            System.out.println(ORANGE + "Enter Player one first name:" + RESET);
             String playerOneFirst = scanner.nextLine();
 
-            System.out.println("Enter Player one last name:");
+            System.out.println(ORANGE + "Enter Player one last name:" + RESET);
             String playerOneLast = scanner.nextLine();
 
-            System.out.println("Enter Player two first name:");
+            System.out.println(GREEN + "Enter Player two first name:" + RESET);
             String playerTwoFirst = scanner.nextLine();
 
-            System.out.println("Enter Player two last name:");
+            System.out.println(GREEN + "Enter Player two last name:" + RESET);
             String playerTwoLast = scanner.nextLine();
 
             this.playerOne = new Player(playerOneFirst, playerOneLast, 0);
@@ -121,11 +125,11 @@ public class Game {
 
         for (int round = 1; round <= 2; round++) {
             renderer.renderPlayers(round);
-            final String RESET = "\u001B[0m";
-            final String ORANGE = "\u001B[38;5;208m";
-            final String GREEN = "\u001B[32m";
+            final String ORANGE = "\u001B[38;5;214m";
+            final String GREEN  = "\u001B[38;5;46m";
+            final String RESET  = "\u001B[0m";
 
-        while (true) {
+            while (true) {
             try {
                 System.out.println(ORANGE + playerOne.getFirstName() + " PRESS ONE TO ROLL THE DICE" + RESET);
                 int playInput = Integer.parseInt(scanner.nextLine());

@@ -1,10 +1,11 @@
 package se.jensen.linea.DiceForSlice;
 
 public class RenderGame extends Game {
-    // ANSI escape codes
-    public static final String RESET = "\u001B[0m";
-    public static final String ORANGE = "\u001B[38;5;208m"; // 256-color orange
-    public static final String GREEN = "\u001B[32m";
+    // ANSI
+    final String ORANGE = "\u001B[38;5;214m";
+    final String GREEN  = "\u001B[38;5;46m";
+    final String RESET  = "\u001B[0m";
+
 
     public RenderGame(Player playerOne, Player playerTwo) {
         super(playerOne, playerTwo);
