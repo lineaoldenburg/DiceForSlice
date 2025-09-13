@@ -109,7 +109,9 @@ public class Game {
             this.playerTwo = new Player(playerTwoFirst, playerTwoLast, 0);
 
             this.renderer = new RenderGame(this.playerOne, this.playerTwo);
+
             game(scanner);
+
         }
 
     /*GAME BEGINS*/
@@ -119,28 +121,44 @@ public class Game {
 
         for (int round = 1; round <= 2; round++) {
             renderer.renderPlayers(round);
+            final String RESET = "\u001B[0m";
+            final String ORANGE = "\u001B[38;5;208m";
+            final String GREEN = "\u001B[32m";
 
-        System.out.println(playerOne.getFirstName() + " PRESS ONE TO ROLL THE DICE");
-        int playInput = Integer.parseInt(scanner.nextLine());
-        if (playInput == 1) {
-            diceRoll = random.nextInt(1, 7);
-            int score = playerOne.getScore() + diceRoll;
-            playerOne.setScore(score);
-        } else {
-            System.out.println("You need to press 1");
+        while (true) {
+            try {
+                System.out.println(ORANGE + playerOne.getFirstName() + " PRESS ONE TO ROLL THE DICE" + RESET);
+                int playInput = Integer.parseInt(scanner.nextLine());
+                if (playInput != 1) {
+                    System.err.println("You need to press 1");
+                } else {
+                    diceRoll = random.nextInt(1, 7);
+                    int score = playerOne.getScore() + diceRoll;
+                    playerOne.setScore(score);
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.err.println("You need to enter a valid number 1 or 2!");
+            }
         }
 
-            System.out.println(playerTwo.getFirstName() + " PRESS ONE TO ROLL THE DICE");
-            playInput = Integer.parseInt(scanner.nextLine());
-            if (playInput == 1) {
-                diceRoll = random.nextInt(1, 7); // roll again for player two
-                int score = playerTwo.getScore() + diceRoll;
-                playerTwo.setScore(score);
-            } else {
-                System.out.println("You need to press 1");
+        while (true) {
+            try {
+                System.out.println(GREEN + playerTwo.getFirstName() + " PRESS ONE TO ROLL THE DICE" + RESET);
+                int playInput = Integer.parseInt(scanner.nextLine());
+                if (playInput != 1) {
+                    System.err.println("You need to press 1");
+
+                } else {
+                    diceRoll = random.nextInt(1, 7); // roll again for player two
+                    int score = playerTwo.getScore() + diceRoll;
+                    playerTwo.setScore(score);
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.err.println("You need to enter a valid number 1 or 2!");
             }
-
-
+            }
         }
 
         determineWinner();
