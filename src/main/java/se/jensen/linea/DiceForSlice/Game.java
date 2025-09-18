@@ -96,26 +96,53 @@ public class Game {
             final String ORANGE = "\u001B[38;5;214m";
             final String GREEN  = "\u001B[38;5;46m";
             final String RESET  = "\u001B[0m";
+            this.playerOne = new Player("", "", 0);
+            this.playerTwo = new Player("", "", 0);
 
-            System.out.println(ORANGE + "Enter Player one first name:" + RESET);
-            String playerOneFirst = scanner.nextLine();
+            while (true) {
+                System.out.println(ORANGE + "Enter Player one first name:" + RESET);
+                String playerOneFirst = scanner.nextLine();
+                try {
+                    playerOne.setFirstName(playerOneFirst);
+                    break;
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
 
-            System.out.println(ORANGE + "Enter Player one last name:" + RESET);
-            String playerOneLast = scanner.nextLine();
+            while (true) {
+                System.out.println(ORANGE + "Enter Player one last name:" + RESET);
+                String playerOneLast = scanner.nextLine();
+                try {
+                    playerOne.setLastName(playerOneLast);
+                    break;
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
 
-            System.out.println(GREEN + "Enter Player two first name:" + RESET);
-            String playerTwoFirst = scanner.nextLine();
+            while (true) {
+                System.out.println(GREEN + "Enter Player two first name:" + RESET);
+                String playerTwoFirst = scanner.nextLine();
+                try {
+                    playerTwo.setFirstName(playerTwoFirst);
+                    break;
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
 
-            System.out.println(GREEN + "Enter Player two last name:" + RESET);
-            String playerTwoLast = scanner.nextLine();
+            while (true) {
+                System.out.println(GREEN + "Enter Player two last name:" + RESET);
+                String playerTwoLast = scanner.nextLine();
+                try {
+                    playerTwo.setLastName(playerTwoLast);
+                    break;
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
 
-            this.playerOne = new Player("First name", "Last name", 0);
-            this.playerTwo = new Player("First name", "Last name", 0);
-
-            playerOne.setFirstName(playerOneFirst);
-            playerOne.setLastName(playerOneLast);
-            playerTwo.setFirstName(playerTwoFirst);
-            playerTwo.setLastName(playerTwoLast);
 
             clearConsole();
             this.renderer = new RenderGame(this.playerOne, this.playerTwo);

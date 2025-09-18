@@ -31,11 +31,16 @@ public class Player {
         this.score = score;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstName(String firstName) throws IllegalArgumentException{
+       if (firstName == null || firstName.trim().isEmpty()) {
+           throw new IllegalArgumentException("You need to enter first name.");
+       } else {this.firstName = firstName;}
+
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastName(String lastName) throws IllegalArgumentException {
+        if (lastName == null || lastName.trim().isEmpty()) {
+            throw new IllegalArgumentException("You need to enter last name.");
+        } else {this.lastName = lastName;}
     }
 }
