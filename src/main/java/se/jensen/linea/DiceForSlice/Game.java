@@ -77,97 +77,105 @@ public class Game {
         System.out.println("Write 1 to start game, Write 2 to quit");
 
         while (true) {
-            int start = Integer.parseInt(scanner.nextLine());
+            String input = scanner.nextLine(); // could be null
 
-            if (start == 1) {
-                clearConsole();
-                CreatePlayers();
-                break;
-            } else if (start == 2) {
-                System.exit(0);
-            } else {
-                System.out.println("1 or 2 are the only valid options.");
+            if (input == null || input.trim().isEmpty()) {
+                System.out.println("You must enter a number (1 or 2)");
+                continue; // go back to start of loop
+            }
+
+            try {
+                int start = Integer.parseInt(input.trim());
+
+                if (start == 1) {
+                    clearConsole();
+                    CreatePlayers();
+                    break;
+                } else if (start == 2) {
+                    System.exit(0);
+                } else {
+                    System.out.println("1 or 2 are the only valid options.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("You must enter a valid number (1 or 2)");
             }
         }
     }
 
     /*CREATE PLAYERS*/
-        public void CreatePlayers() {
-            final String ORANGE = "\u001B[38;5;214m";
-            final String GREEN  = "\u001B[38;5;46m";
-            final String RESET  = "\u001B[0m";
-            this.playerOne = new Player("", "", 0);
-            this.playerTwo = new Player("", "", 0);
+    public void CreatePlayers() {
+        final String ORANGE = "\u001B[38;5;214m";
+        final String GREEN  = "\u001B[38;5;46m";
+        final String RESET  = "\u001B[0m";
+        this.playerOne = new Player("", "", 0);
+        this.playerTwo = new Player("", "", 0);
 
-            while (true) {
-                System.out.println(ORANGE + "Enter Player one first name:" + RESET);
-                String playerOneFirst = scanner.nextLine();
-                try {
-                    playerOne.setFirstName(playerOneFirst);
-                    break;
-                } catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
-                }
+        while (true) {
+            System.out.println(ORANGE + "Enter Player one first name:" + RESET);
+            String playerOneFirst = scanner.nextLine();
+            try {
+                playerOne.setFirstName(playerOneFirst);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
-
-            while (true) {
-                System.out.println(ORANGE + "Enter Player one last name:" + RESET);
-                String playerOneLast = scanner.nextLine();
-                try {
-                    playerOne.setLastName(playerOneLast);
-                    break;
-                } catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-
-            while (true) {
-                System.out.println(GREEN + "Enter Player two first name:" + RESET);
-                String playerTwoFirst = scanner.nextLine();
-                try {
-                    playerTwo.setFirstName(playerTwoFirst);
-                    break;
-                } catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-
-            while (true) {
-                System.out.println(GREEN + "Enter Player two last name:" + RESET);
-                String playerTwoLast = scanner.nextLine();
-                try {
-                    playerTwo.setLastName(playerTwoLast);
-                    break;
-                } catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-
-
-            clearConsole();
-            this.renderer = new RenderGame(this.playerOne, this.playerTwo);
-
-            game(scanner);
-
-            while (true) {
-                System.out.println("REMATCH???");
-                System.out.println("press 1 for yes, 2 for no");
-                int input = Integer.parseInt(scanner.nextLine());
-                if (input == 1) {
-                    playerOne.setScore(0);
-                    playerTwo.setScore(0);
-                    clearConsole();
-                    game(scanner);
-                }
-                else {
-                    System.out.println("Game Ends");
-                    break;
-                }
-            }
-
-
-
         }
+
+        while (true) {
+            System.out.println(ORANGE + "Enter Player one last name:" + RESET);
+            String playerOneLast = scanner.nextLine();
+            try {
+                playerOne.setLastName(playerOneLast);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        while (true) {
+            System.out.println(GREEN + "Enter Player two first name:" + RESET);
+            String playerTwoFirst = scanner.nextLine();
+            try {
+                playerTwo.setFirstName(playerTwoFirst);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        while (true) {
+            System.out.println(GREEN + "Enter Player two last name:" + RESET);
+            String playerTwoLast = scanner.nextLine();
+            try {
+                playerTwo.setLastName(playerTwoLast);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+
+        clearConsole();
+        this.renderer = new RenderGame(this.playerOne, this.playerTwo);
+
+        game(scanner);
+
+        while (true) {
+            System.out.println("REMATCH???");
+            System.out.println("press 1 for yes, 2 for no");
+            int input = Integer.parseInt(scanner.nextLine());
+            if (input == 1) {
+                playerOne.setScore(0);
+                playerTwo.setScore(0);
+                clearConsole();
+                game(scanner);
+            }
+            else {
+                System.out.println("Game Ends");
+                break;
+            }
+        }
+    }
 
     /*GAME BEGINS*/
     public void game(Scanner scanner) {
@@ -179,40 +187,39 @@ public class Game {
             final String GREEN  = "\u001B[38;5;46m";
             final String RESET  = "\u001B[0m";
             while (true) {
-            try {
-                System.out.println(ORANGE + playerOne.getFirstName() + " PRESS ONE TO ROLL THE DICE" + RESET);
-                int playInput = Integer.parseInt(scanner.nextLine());
-                if (playInput != 1) {
-                    System.err.println("You need to press 1");
-                } else {
-                    dice.roll();
-                    int diceRoll = dice.getDiceRoll();
-                    int score = playerOne.getScore() + diceRoll;
-                    playerOne.setScore(score);
-                    break;
+                try {
+                    System.out.println(ORANGE + playerOne.getFirstName() + " PRESS ONE TO ROLL THE DICE" + RESET);
+                    int playInput = Integer.parseInt(scanner.nextLine());
+                    if (playInput != 1) {
+                        System.out.println("You need to press 1");
+                    } else {
+                        dice.roll();
+                        int diceRoll = dice.getDiceRoll();
+                        int score = playerOne.getScore() + diceRoll;
+                        playerOne.setScore(score);
+                        break;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("You need to enter a valid number (1)!");
                 }
-            } catch (NumberFormatException e) {
-                System.err.println("You need to enter a valid number 1 or 2!");
             }
-        }
 
-        while (true) {
-            try {
-                System.out.println(GREEN + playerTwo.getFirstName() + " PRESS ONE TO ROLL THE DICE" + RESET);
-                int playInput = Integer.parseInt(scanner.nextLine());
-                if (playInput != 1) {
-                    System.err.println("You need to press 1");
-
-                } else {
-                    dice.roll();
-                    int diceRoll = dice.getDiceRoll();
-                    int score = playerTwo.getScore() + diceRoll;
-                    playerTwo.setScore(score);
-                    break;
+            while (true) {
+                try {
+                    System.out.println(GREEN + playerTwo.getFirstName() + " PRESS ONE TO ROLL THE DICE" + RESET);
+                    int playInput = Integer.parseInt(scanner.nextLine());
+                    if (playInput != 1) {
+                        System.out.println("You need to press 1");
+                    } else {
+                        dice.roll();
+                        int diceRoll = dice.getDiceRoll();
+                        int score = playerTwo.getScore() + diceRoll;
+                        playerTwo.setScore(score);
+                        break;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("You need to enter a valid number (1)!");
                 }
-            } catch (NumberFormatException e) {
-                System.err.println("You need to enter a valid number 1 or 2!");
-            }
             }
         }
 
@@ -233,5 +240,3 @@ public class Game {
         }
     }
 }
-
-
