@@ -199,6 +199,8 @@ public class Game {
 
         if (playerOneScore > playerTwoScore) {
             renderer.renderWinner(playerOne, playerTwo);
+        } else if (playerOneScore == playerTwoScore) {
+            System.out.println("NO ONE ONE! IT IS EQUAL");
         } else {
             renderer.renderWinner(playerTwo, playerOne);
         }
