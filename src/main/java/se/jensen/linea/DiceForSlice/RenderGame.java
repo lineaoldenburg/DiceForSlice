@@ -3,8 +3,8 @@ package se.jensen.linea.DiceForSlice;
 public class RenderGame extends Game {
     // ANSI
     final String ORANGE = "\u001B[38;5;214m";
-    final String GREEN  = "\u001B[38;5;46m";
-    final String RESET  = "\u001B[0m";
+    final String GREEN = "\u001B[38;5;46m";
+    final String RESET = "\u001B[0m";
 
 
     public RenderGame(Player playerOne, Player playerTwo) {
@@ -35,13 +35,20 @@ public class RenderGame extends Game {
     }
 
     public void renderWinner(Player winningPlayer, Player losingPlayer) {
-        System.out.println("THE WINNER IS:");
-        System.out.println(winningPlayer.getFullName());
-
         int winningScore = winningPlayer.getScore();
         int loserScore = losingPlayer.getScore();
-        int scoreAmount = winningScore - loserScore;
 
-        System.out.println("Du vann med: " + scoreAmount + " poäng");
+        if (winningScore > loserScore) {
+            System.out.println("THE WINNER IS:");
+            System.out.println(winningPlayer.getFullName());
+            int scoreAmount = winningScore - loserScore;
+            System.out.println("YOU WON WITH: " + scoreAmount + " POINTS");
+            System.out.println(winningPlayer.getFullName() + ": [" + winningScore + "]");
+            System.out.println(losingPlayer.getFullName() + ": [" + loserScore + "]");
+        } else if (winningScore == loserScore) {
+            System.out.println("IT'S A TIE!");
+            System.out.println(winningPlayer.getFullName() + ": [" + winningScore + "]");
+            System.out.println(losingPlayer.getFullName() + ": [" + loserScore + "]");
+        }
     }
 }
