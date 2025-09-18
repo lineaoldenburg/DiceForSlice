@@ -144,15 +144,13 @@ public class Game {
 
     /*GAME BEGINS*/
     public void game(Scanner scanner) {
-        Random random = new Random();
-        int diceRoll = 0;
+        Dice dice = new Dice();
 
         for (int round = 1; round <= 2; round++) {
             renderer.renderPlayers(round);
             final String ORANGE = "\u001B[38;5;214m";
             final String GREEN  = "\u001B[38;5;46m";
             final String RESET  = "\u001B[0m";
-
             while (true) {
             try {
                 System.out.println(ORANGE + playerOne.getFirstName() + " PRESS ONE TO ROLL THE DICE" + RESET);
@@ -160,8 +158,8 @@ public class Game {
                 if (playInput != 1) {
                     System.err.println("You need to press 1");
                 } else {
-                    Dice dice = new Dice();
-                    diceRoll = dice.getDiceRoll();
+                    dice.roll();
+                    int diceRoll = dice.getDiceRoll();
                     int score = playerOne.getScore() + diceRoll;
                     playerOne.setScore(score);
                     break;
@@ -179,7 +177,8 @@ public class Game {
                     System.err.println("You need to press 1");
 
                 } else {
-                    diceRoll = random.nextInt(1, 7); // roll again for player two
+                    dice.roll();
+                    int diceRoll = dice.getDiceRoll();
                     int score = playerTwo.getScore() + diceRoll;
                     playerTwo.setScore(score);
                     break;
