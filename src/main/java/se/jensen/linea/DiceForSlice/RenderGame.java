@@ -37,18 +37,71 @@ public class RenderGame extends Game {
     public void renderWinner(Player winningPlayer, Player losingPlayer) {
         int winningScore = winningPlayer.getScore();
         int loserScore = losingPlayer.getScore();
+        boolean isTie = winningScore == loserScore;
 
-        if (winningScore > loserScore) {
-            System.out.println("THE WINNER IS:");
-            System.out.println(winningPlayer.getFullName());
-            int scoreAmount = winningScore - loserScore;
-            System.out.println("YOU WON WITH: " + scoreAmount + " POINTS");
-            System.out.println(winningPlayer.getFullName() + ": [" + winningScore + "]");
-            System.out.println(losingPlayer.getFullName() + ": [" + loserScore + "]");
-        } else if (winningScore == loserScore) {
-            System.out.println("IT'S A TIE!");
-            System.out.println(winningPlayer.getFullName() + ": [" + winningScore + "]");
-            System.out.println(losingPlayer.getFullName() + ": [" + loserScore + "]");
+        // ASCII art: pizza for winner, tie art for tie
+        String[] art;
+        if (isTie) {
+            art = new String[]{
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠿⠿⠿⠿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣶⣶⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣙⣉⣉⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⠿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢉⣉⣠⣤⣴⣶⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⠿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢈⣉⣭⣤⣤⣶⣶⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⠿⠿⠛⠛⢉⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣉⣠⣤⣴⣶⣾⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠚⢿⣿⣿⠿⠿⠛⠋⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠶⡶⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+            };
+        } else {
+            art = new String[]{
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣉⡙⠛⠿⣿⣶⣦⣤⣄⣀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡌⢻⣿⣿⣷⣶⣤⣉⡙⠛⠿⣿⣿⣶⠆⡀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠛⢃⣼⣿⣿⣿⣿⣿⣿⣿⣷⣶⣤⣌⣉⠀⣿⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⠟⠛⠛⠿⣿⣿⣿⣿⣿⡿⠟⢋⣥⡶⠟⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣇⠰⣿⣿⣦⡈⣿⠟⢋⣡⡴⠞⠋⠁⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⢼⣿⣿⣿⣿⣿⣦⣌⡉⠉⣠⡴⠞⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠲⠆⢹⣿⣿⠿⠛⣉⡥⠖⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⣰⣿⣿⠿⠛⣉⣤⠶⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⡰⠟⢋⣤⠶⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⡴⠞⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+                    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+            };
         }
+
+        // Build table strings
+        String heading = isTie ? "IT'S A TIE! " : "THE SLICE GOES TO: " + winningPlayer.getFullName();
+        String pointsLine = isTie ? "" : "You won with: " + (winningScore - loserScore) + " POINTS";
+        String row1 = winningPlayer.getFullName() + ": [" + winningScore + "]";
+        String row2 = losingPlayer.getFullName() + ": [" + loserScore + "]";
+
+        // Table width (twice as long)
+        int leftWidth = 60;
+
+        // Print table with ASCII art
+        System.out.printf("%-" + leftWidth + "s | %s%n", "_".repeat(50), art[0]);
+        System.out.printf("%-" + leftWidth + "s | %s%n", heading, art[1]);
+        if (!pointsLine.isEmpty()) {
+            System.out.printf("%-" + leftWidth + "s | %s%n", pointsLine, art[2]);
+        } else {
+            System.out.printf("%-" + leftWidth + "s | %s%n", "", art[2]);
+        }
+        System.out.printf("%-" + leftWidth + "s | %s%n", "_".repeat(50), art[3]);
+        System.out.printf("%-" + leftWidth + "s | %s%n", row1, art.length > 4 ? art[4] : "");
+        System.out.printf("%-" + leftWidth + "s | %s%n", row2, art.length > 5 ? art[5] : "");
+        for (int i = 6; i < art.length; i++) {
+            System.out.printf("%-" + leftWidth + "s | %s%n", "", art[i]);
+        }
+        System.out.printf("%-" + leftWidth + "s | %s%n", "_".repeat(50), "");
     }
 }
