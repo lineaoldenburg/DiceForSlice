@@ -30,4 +30,12 @@ public class Player {
     public void setScore(int score) {
         this.score = score;
     }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }

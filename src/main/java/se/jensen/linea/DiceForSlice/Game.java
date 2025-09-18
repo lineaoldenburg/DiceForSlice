@@ -109,12 +109,36 @@ public class Game {
             System.out.println(GREEN + "Enter Player two last name:" + RESET);
             String playerTwoLast = scanner.nextLine();
 
-            this.playerOne = new Player(playerOneFirst, playerOneLast, 0);
-            this.playerTwo = new Player(playerTwoFirst, playerTwoLast, 0);
+            this.playerOne = new Player("First name", "Last name", 0);
+            this.playerTwo = new Player("First name", "Last name", 0);
 
+            playerOne.setFirstName(playerOneFirst);
+            playerOne.setLastName(playerOneLast);
+            playerTwo.setFirstName(playerTwoFirst);
+            playerTwo.setLastName(playerTwoLast);
+
+            clearConsole();
             this.renderer = new RenderGame(this.playerOne, this.playerTwo);
 
             game(scanner);
+
+            while (true) {
+                System.out.println("REMATCH???");
+                System.out.println("press 1 for yes, 2 for no");
+                int input = Integer.parseInt(scanner.nextLine());
+                if (input == 1) {
+                    playerOne.setScore(0);
+                    playerTwo.setScore(0);
+                    clearConsole();
+                    game(scanner);
+                }
+                else {
+                    System.out.println("Game Ends");
+                    break;
+                }
+            }
+
+
 
         }
 
@@ -136,7 +160,8 @@ public class Game {
                 if (playInput != 1) {
                     System.err.println("You need to press 1");
                 } else {
-                    diceRoll = random.nextInt(1, 7);
+                    Dice dice = new Dice();
+                    diceRoll = dice.getDiceRoll();
                     int score = playerOne.getScore() + diceRoll;
                     playerOne.setScore(score);
                     break;
